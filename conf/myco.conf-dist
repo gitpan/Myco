@@ -1,0 +1,41 @@
+#!/usr/bin/perl
+#   note: above bang-path is present just to make emacs cperl mode happy
+###########################################################################
+# Myco configuration file.
+#
+###########################################################################
+
+  schema => { # entity schema declaration for use in Myco::Schema.
+	      # Schema that are basic to a myco installation are recorded
+	      # directly in Myco::Schema. Please schema here that are add-ons,
+	      # apps, etc.
+
+	      SCHEMA_ENTITY_CLASSES => [
+					qw(
+					   
+					  )
+				       ],
+	    },
+
+  database => { # database config
+
+	       DB_DSN => '',
+	       DB_USER => '',
+	       DB_PASSWORD => '',
+
+	       # command args used to recycle the database
+	       DB_DROP_CMD => '',
+	       DB_CREATE_CMD => '',
+              },
+
+  evlog => { # Object event logging (just 'write' logging at present)
+
+            # Master logging system on/off switch
+            EVLOG => 1,
+            EVLOG_CLASSES => # Log events for these classes
+            [
+             qw(
+                Myco::Entity::SampleEntity
+               )
+            ],
+           },

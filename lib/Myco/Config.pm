@@ -1,7 +1,7 @@
 package Myco::Config;
 
 ################################################################################
-# $Id: Config.pm,v 1.1.1.1 2004/11/22 19:16:01 owensc Exp $
+# $Id: Config.pm,v 1.2 2006/02/17 18:22:38 sommerb Exp $
 #
 # See license and copyright near the end of this file.
 ################################################################################
@@ -22,32 +22,32 @@ Myco::Config - Myco Configuration Module
 
 =cut
 
-our $VERSION = 0.01;
+our $VERSION = 1.0;
 
 =item Repository
 
-$Revision$ $Date$
+$Revision: 1.2 $ $Date: 2006/02/17 18:22:38 $
 
 =back
 
 =head1 SYNOPSIS
 
   # In myco.conf:
-  randy  => {
-              RANDY_PORT   => 6288,
-              RANDY_HOST   => 'localhost'
+  foobar  => {
+              FOOBAR_PORT_NUM   => 6288,
+              FOOBAR_HOST   => 'localhost'
             },
-  apache => {
-              APACHE_USER  => 'nobody',
-              APACHE_GROUP => 'nobody'
-            }
+  barbaz  => {
+              BARBAZ_USER => 'bazdude',
+              BARBAZ_PROFILE => { uid => 1999,
+                                  gid => 1999, },
+            },
 
+  # In a Myco entity class:
+  use Myco::Config qw(:foobar);
 
-  # In a Myco class:
-  use Myco::Config qw(:randy);
-
-  # In another Myco class:
-  use Myco::Config qw(:apache);
+  # In another Myco entity class:
+  use Myco::Config qw(:barbaz);
 
   # To get all constants:
   use Myco::Config qw(:all);
@@ -55,10 +55,10 @@ $Revision$ $Date$
 =head1 DESCRIPTION
 
 This module reads in a configuration file and sets up a bunch of constants
-that can be useed in Myco. The configuration file consists of Perl code that,
+that can be used in Myco. The configuration file consists of Perl code that,
 when C<eval>ed by Myco::Config, generates a hash of hash references. Each hash
 reference is turned into a series of constants, one for each key/value pair.
-They keys in the main hash are turned into labels under which the constants
+The keys in the main hash are turned into labels under which the constants
 generated from the hash reference in the keys' values are listed. This makes
 it very simple to create export tags that can be used in modules to import
 only the constants associated with a given label.
@@ -115,9 +115,5 @@ it under the same terms as Perl itself.
 =head1 AUTHOR
 
 David Wheeler <david@wheeler.net>
-
-=head1 SEE ALSO
-
-L<Myco::UI::Cache|Myco::UI::Cache>
 
 =cut

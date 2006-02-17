@@ -1,7 +1,7 @@
 package Myco;
 
 ###############################################################################
-# $Id: Myco.pm,v 1.1.1.1 2004/11/22 19:16:01 owensc Exp $
+# $Id: Myco.pm,v 1.2 2006/02/17 18:22:38 sommerb Exp $
 #
 # See license and copyright near the end of this file.
 ###############################################################################
@@ -20,11 +20,11 @@ Myco - The myco object framework
 
 =cut
 
-our $VERSION = 0.01;
+our $VERSION = 1.0;
 
 =item Repository
 
-$Revision: 1.1.1.1 $ $Date: 2004/11/22 19:16:01 $
+$Revision: 1.2 $ $Date: 2006/02/17 18:22:38 $
 
 =back
 
@@ -56,7 +56,7 @@ $Revision: 1.1.1.1 $ $Date: 2004/11/22 19:16:01 $
  }
 
  ### Object insertion and update
-                                # Myco::Base::Entity alternative
+                                # Myco::Entity alternative
  Myco->insert($obj);               # $obj->save;
  Myco->update($obj);               # $obj->save;
  Myco->update(@objects);
@@ -77,7 +77,7 @@ connection object as class data, allowing access to object
 persistence functionality via class method calls.
 
 Intended for use with so-called myco "entity" objects, that is those
-belonging to classes that inherit from Myco::Base::Entity.  Use of
+belonging to classes that inherit from Myco::Entity.  Use of
 inherited instance methods for managing object persistence state where
 possible is preferred.  (ie. use C<$obj-E<gt>save> instead of both
 C<Myco-E<gt>insert($obj)> and C<Myco-E<gt>update($obj)>.)
@@ -96,7 +96,7 @@ use Myco::Exceptions;
 use Tangram;
 use Myco::Schema;
 use WeakRef;
-use Myco::Base::Entity::Event;
+use Myco::Entity::Event;
 
 ### Class data
 my $_Tstorage;
@@ -106,7 +106,7 @@ my $_event_cache;
 sub storage {
     my ($class, $newval) = @_;
     $_Tstorage = $newval if defined $newval;
-    $_event_cache = Myco::Base::Entity::Event->get_event_cache;
+    $_event_cache = Myco::Entity::Event->get_event_cache;
     return $_Tstorage;
 }
 
@@ -173,7 +173,7 @@ sub insert {
     my $self = shift;
     my @ids = $_Tstorage->insert(@_);
     for my $entity (@_) {
-        Myco::Base::Entity::Event->flush_event($entity)
+        Myco::Entity::Event->flush_event($entity)
             if exists $_event_cache->{"$entity"};
     }
     return wantarray ? @ids : shift @ids;
@@ -182,7 +182,7 @@ sub insert {
 sub update {
     my $self = shift;
     for my $entity (@_) {
-        Myco::Base::Entity::Event->flush_event($entity)
+        Myco::Entity::Event->flush_event($entity)
             if exists $_event_cache->{"$entity"};
     }
     $_Tstorage->update(@_);
@@ -192,7 +192,7 @@ sub erase {
     my $self = shift;
     for my $entity (@_) {
         my $event = 
-          Myco::Base::Entity::Event->new( entity => $entity, kind => 2,
+          Myco::Entity::Event->new( entity => $entity, kind => 2,
                                           entity_id => $_Tstorage->id($entity)
                                         );
         Myco->insert($event) if $event;
@@ -233,6 +233,6 @@ it under the same terms as Perl itself.
 =head1 SEE ALSO
 
 all L<Tangram|Tangram> -related perldoc,
-L<Myco::Base::Entity|Myco::Base::Entity>,
+L<Myco::Entity|Myco::Entity>,
 
 =cut

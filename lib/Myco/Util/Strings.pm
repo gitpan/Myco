@@ -1,14 +1,14 @@
 package Myco::Util::Strings;
 
 ###############################################################################
-# $Id: Strings.pm,v 1.1.1.1 2004/11/22 19:16:02 owensc Exp $
+# $Id: Strings.pm,v 1.3 2006/02/17 18:22:39 sommerb Exp $
 #
 # See license and copyright near the end of this file.
 ###############################################################################
 
 =head1 NAME
 
-Myco::Util::Strings - a Myco entity class
+Myco::Util::Strings -  a Myco entity class
 
 =head1 VERSION
 
@@ -20,32 +20,21 @@ Myco::Util::Strings - a Myco entity class
 
 =cut
 
-our $VERSION = 0.01;
+our $VERSION = 1.0;
 
 =item Repository
 
-$Revision$ $Date$
+$Revision: 1.3 $ $Date: 2006/02/17 18:22:39 $
 
 =back
 
 =head1 SYNOPSIS
 
-  use Myco;
-
-  # Constructors. See Myco::Base::Entity for more.
-  my $obj = Myco::Util::Strings->new;
-
-  # Accessors.
-  my $value = $obj->get_fooattrib;
-  $obj->set_fooattrib($value);
-
-  $obj->save;
-  $obj->destroy;
+  use Myco::Util::Strings;
 
 =head1 DESCRIPTION
 
-Blah blah blah... Blah blah blah... Blah blah blah...
-Blah blah blah blah blah... Blah blah...
+A simple shell to store oft-used string-manipulation routines.
 
 =cut
 
@@ -70,31 +59,18 @@ use MIME::Base64;
 ##############################################################################
 # Inheritance & Introspection
 ##############################################################################
-use base qw(Myco::Base::Entity);
-my $md = Myco::Base::Entity::Meta->new( name => __PACKAGE__ );
+use base qw(Myco::Entity);
+my $md = Myco::Entity::Meta->new( name => __PACKAGE__ );
 
 ##############################################################################
 # Function and Closure Prototypes
 ##############################################################################
 
-
-##############################################################################
-# Constructor, etc.
-##############################################################################
-
-=head1 COMMON ENTITY INTERFACE
-
-Constructor, accessors, and other methods -- as inherited from
-Myco::Base::Entity.
-
-=cut
-
-
 ##############################################################################
 # Methods
 ##############################################################################
 
-=head1 ADDED CLASS / INSTANCE METHODS
+=head1 ADDED CLASS METHODS
 
 =head2 pretty_print
 
@@ -250,7 +226,7 @@ it under the same terms as Perl itself.
 =head1 SEE ALSO
 
 L<Myco::Util::Strings::Test|Myco::Util::Strings::Test>,
-L<Myco::Base::Entity|Myco::Base::Entity>,
+L<Myco::Entity|Myco::Entity>,
 L<Myco|Myco>,
 L<Tangram|Tangram>,
 L<Class::Tangram|Class::Tangram>,

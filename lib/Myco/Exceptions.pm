@@ -1,7 +1,7 @@
 package Myco::Exceptions;
 
 ################################################################################
-# $Id: Exceptions.pm,v 1.1.1.1 2004/11/22 19:16:01 owensc Exp $
+# $Id: Exceptions.pm,v 1.3 2006/02/17 18:22:38 sommerb Exp $
 #
 # See license and copyright near the end of this file.
 ################################################################################
@@ -22,11 +22,11 @@ Myco::Exceptions - Myco Exception classes defined
 
 =cut
 
-our $VERSION = 0.01;
+our $VERSION = 1.0;
 
 =item Repository
 
-$Revision$ $Date$
+$Revision: 1.3 $ $Date: 2006/02/17 18:22:38 $
 
 =back
 
@@ -37,7 +37,8 @@ $Revision$ $Date$
 
 =head1 DESCRIPTION
 
-
+Myco::Exceptions provides a straight-forward way to define different classes of
+exceptions for various pieces of myco.
 
 =cut
 

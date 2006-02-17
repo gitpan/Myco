@@ -1,7 +1,7 @@
 package Myco::Exceptions::Test;
 
 ################################################################################
-# $Id: Test.pm,v 1.1.1.1 2004/11/22 19:16:05 owensc Exp $
+# $Id: Test.pm,v 1.1.1.1 2005/12/09 18:08:47 sommerb Exp $
 #
 # See license and copyright near the end of this file.
 ################################################################################
@@ -25,7 +25,7 @@ our $VERSION = (qw$Revision: 1.1.1.1 $ )[-1];
 
 =head1 DATE
 
-$Date: 2004/11/22 19:16:05 $
+$Date: 2005/12/09 18:08:47 $
 
 =head1 SYNOPSIS
 

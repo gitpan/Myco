@@ -1,7 +1,7 @@
 package Myco::Test::EntityTest;
 
 ###############################################################################
-# $Id: EntityTest.pm,v 1.1.1.1 2004/11/22 19:16:05 owensc Exp $
+# $Id: EntityTest.pm,v 1.1.1.1 2005/12/09 18:08:47 sommerb Exp $
 #
 # See license and copyright near the end of this file.
 ###############################################################################
@@ -267,7 +267,7 @@ Charles Owens <owensc@enc.edu>
 
 =head1 SEE ALSO
 
-L<Myco::Base::Entity|Myco::Base::Entity>,
+L<Myco::Entity|Myco::Entity>,
 L<Myco::Test::Suite|Myco::Test::Suite>,
 L<testrun|testrun>,
 L<tktestrun|tktestrun>,

@@ -1,14 +1,14 @@
 package Myco::Util::DateTime;
 
 ###############################################################################
-# $Id: DateTime.pm,v 1.1.1.1 2004/11/22 19:16:02 owensc Exp $
+# $Id: DateTime.pm,v 1.3 2006/02/17 18:22:39 sommerb Exp $
 #
 # See license and copyright near the end of this file.
 ###############################################################################
 
 =head1 NAME
 
-Myco::Util::DateTime - a Myco entity class
+Myco::Util::DateTime - a Myco utility class
 
 =head1 VERSION
 
@@ -20,32 +20,31 @@ Myco::Util::DateTime - a Myco entity class
 
 =cut
 
-our $VERSION = 0.01;
+our $VERSION = 1.0;
 
 =item Repository
 
-$Revision$ $Date$
+$Revision: 1.3 $ $Date: 2006/02/17 18:22:39 $
 
 =back
 
 =head1 SYNOPSIS
 
-  use Myco;
+  use Myco::Util::DateTime;
 
-  # Constructors. See Myco::Base::Entity for more.
-  my $obj = Myco::Util::DateTime->new;
+  # No constructor is offered here - just use the class methods offered,
+  # but if this helps you...
 
-  # Accessors.
-  my $value = $obj->get_fooattrib;
-  $obj->set_fooattrib($value);
+  my $datetime = 'Myco::Util::DateTime';
 
-  $obj->save;
-  $obj->destroy;
+  print "April Fools!" if $datetime->date('YYYY-MM-DD') eq '2006-04-01';
+
+  # Lot's of other neat methods - see below.
+
 
 =head1 DESCRIPTION
 
-Blah blah blah... Blah blah blah... Blah blah blah...
-Blah blah blah blah blah... Blah blah...
+A simple shell to store oft-used Date-munging routines.
 
 =cut
 
@@ -77,22 +76,10 @@ use Date::Calc qw( Today Now Delta_Days Add_Delta_Days Add_Delta_Days
 
 
 ##############################################################################
-# Constructor, etc.
-##############################################################################
-
-=head1 COMMON ENTITY INTERFACE
-
-Constructor, accessors, and other methods -- as inherited from
-Myco::Base::Entity.
-
-=cut
-
-
-##############################################################################
 # Methods
 ##############################################################################
 
-=head1 ADDED CLASS / INSTANCE METHODS
+=head1 CLASS METHODS
 
 =head2 date
 

@@ -1,5 +1,5 @@
 
-# $Id: test_unit_testcase.t,v 1.1.1.1 2004/11/22 19:16:02 owensc Exp $
+# $Id: test_unit_testcase.t,v 1.1.1.1 2005/12/09 18:08:47 sommerb Exp $
 
 
 use strict;
@@ -25,6 +25,6 @@ while ( defined(my $tout = <TESTRUN>) ) {
 }
 close TESTRUN;
 
-ok($tot && !defined $fail, 1, "Test::Unit::TestCase unit test results -- $ln");
+$ln = '' unless $ln;
 
-
+ok($tot && !defined $fail, 1, "Test::Unit::TestCase unit test results -- $ln" );

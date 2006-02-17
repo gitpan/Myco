@@ -1,7 +1,7 @@
 package Myco::Constants::Test;
 
 ###############################################################################
-# $Id: Test.pm,v 1.1.1.1 2004/11/22 19:16:05 owensc Exp $
+# $Id: Test.pm,v 1.1.1.1 2005/12/09 18:08:47 sommerb Exp $
 #
 # See license and copyright near the end of this file.
 ###############################################################################
@@ -22,7 +22,7 @@ our $VERSION = (qw$Revision: 1.1.1.1 $ )[-1];
 
 =head1 DATE
 
-$Date: 2004/11/22 19:16:05 $
+$Date: 2005/12/09 18:08:47 $
 
 =head1 SYNOPSIS
 
@@ -60,8 +60,8 @@ use constant DEBUG => $ENV{MYCO_TEST_DEBUG} || 0;
 ##############################################################################
 my %test_parameters =
   (
-   skip_persistence => 1,     # skip persistence tests?  (defaults to false)
-   standalone => 1,           # don't compile Myco entity classes
+   skip_persistence => 0,     # skip persistence tests?  (defaults to false)
+   standalone => 0,           # don't compile Myco entity classes
   );
 
 ##############################################################################

@@ -1,7 +1,7 @@
 package Myco::Constants;
 
 ###############################################################################
-# $Id: Constants.pm,v 1.1.1.1 2004/11/22 19:16:01 owensc Exp $
+# $Id: Constants.pm,v 1.2 2006/02/17 18:22:38 sommerb Exp $
 #
 # See license and copyright near the end of this file.
 ###############################################################################
@@ -20,11 +20,11 @@ Myco::Constants
 
 =cut
 
-our $VERSION = 0.01;
+our $VERSION = 1.0;
 
 =item Repository
 
-$Revision$ $Date$
+$Revision: 1.2 $ $Date: 2006/02/17 18:22:38 $
 
 =back
 
@@ -163,7 +163,7 @@ it under the same terms as Perl itself.
 =head1 SEE ALSO
 
 L<Myco::Constants::Test|Myco::Constants::Test>,
-L<Myco::Base::Entity|Myco::Base::Entity>,
+L<Myco::Entity|Myco::Entity>,
 L<Myco|Myco>,
 L<Tangram|Tangram>,
 L<Class::Tangram|Class::Tangram>,

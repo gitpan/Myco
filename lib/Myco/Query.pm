@@ -1,7 +1,7 @@
 package Myco::Query;
 
 ###############################################################################
-# $Id: Query.pm,v 1.1.1.1 2004/11/22 19:16:01 owensc Exp $
+# $Id: Query.pm,v 1.3 2006/02/17 18:22:38 sommerb Exp $
 ###############################################################################
 
 =head1 NAME
@@ -18,11 +18,11 @@ Myco::Query - a Myco entity class
 
 =cut
 
-our $VERSION = 0.01;
+our $VERSION = 1.0;
 
 =item Repository
 
-$Revision$ $Date$
+$Revision: 1.3 $ $Date: 2006/02/17 18:22:38 $
 
 =back
 
@@ -30,19 +30,12 @@ $Revision$ $Date$
 
   use Myco::Query;
 
-  # Constructors. See Myco::Base::Entity for more.
-  my $obj = Myco::Query->new;
-
-  # Accessors.
-  my $value = $obj->get_fooattrib;
-  $obj->set_fooattrib($value);
-
-  $obj->save;
-  $obj->destroy;
+  # Constructors, accessors, etc - see Myco::QueryTemplate for more.
 
 =head1 DESCRIPTION
 
 A class to prepare and store Tangram Query objects used to generate lists.
+See L<Myco::QueryTemplate|Myco::QueryTemplate> for full info.
 
 =cut
 
@@ -53,15 +46,14 @@ A class to prepare and store Tangram Query objects used to generate lists.
 use warnings;
 use strict;
 use Myco::Exceptions;
-use CGI;
 
 
 ##############################################################################
 # Inheritance & Introspection
 ##############################################################################
-use base qw( Myco::Base::Entity
+use base qw( Myco::Entity
              Myco::QueryTemplate );
-my $md = Myco::Base::Entity::Meta->new
+my $md = Myco::Entity::Meta->new
   ( name => __PACKAGE__,
     tangram => { table => 'query', },
     ui => {

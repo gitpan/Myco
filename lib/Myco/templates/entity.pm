@@ -1,7 +1,7 @@
 package Myco::Foo;
 
 ###############################################################################
-# $Id: entity.pm,v 1.1.1.1 2004/11/22 19:16:02 owensc Exp $
+# $Id: entity.pm,v 1.2 2006/02/17 18:22:39 sommerb Exp $
 #
 # See license and copyright near the end of this file.
 ###############################################################################
@@ -20,11 +20,11 @@ Myco::Foo - a Myco entity class
 
 =cut
 
-our $VERSION = 0.01;
+our $VERSION = 1.0;
 
 =item Repository
 
-$Revision$ $Date$
+$Revision: 1.2 $ $Date: 2006/02/17 18:22:39 $
 
 =back
 
@@ -32,7 +32,7 @@ $Revision$ $Date$
 
   use Myco;
 
-  # Constructors. See Myco::Base::Entity for more.
+  # Constructors. See Myco::Entity for more.
   my $obj = Myco::Foo->new;
 
   # Accessors.
@@ -69,8 +69,8 @@ use Myco::Exceptions;
 ##############################################################################
 # Inheritance & Introspection
 ##############################################################################
-use base qw(Myco::Base::Entity);
-my $md = Myco::Base::Entity::Meta->new
+use base qw(Myco::Entity);
+my $md = Myco::Entity::Meta->new
   ( name => __PACKAGE__,
     tangram => { table => '::SetTableName', },
 #    ui => { displayname => 'fooattrib' }
@@ -88,7 +88,7 @@ my $md = Myco::Base::Entity::Meta->new
 =head1 COMMON ENTITY INTERFACE
 
 Constructor, accessors, and other methods -- as inherited from
-Myco::Base::Entity.
+Myco::Entity.
 
 =cut
 
@@ -205,7 +205,7 @@ it under the same terms as Perl itself.
 =head1 SEE ALSO
 
 L<Myco::Foo::Test|Myco::Foo::Test>,
-L<Myco::Base::Entity|Myco::Base::Entity>,
+L<Myco::Entity|Myco::Entity>,
 L<Myco|Myco>,
 L<Tangram|Tangram>,
 L<Class::Tangram|Class::Tangram>,

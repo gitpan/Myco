@@ -13,15 +13,14 @@ getopts('d:u:p:hTD:');
 
 usage() if $opt_h;
 
-my $db = $opt_d || $ENV{PGDATABASE} || getpwuid $>;
-my $user = $opt_u || $ENV{PGUSER} || getpwuid $>;
-my $pass = $opt_p || $ENV{PGPASSWORD} || '';
+use Myco::Config qw(:database);
+
+my $user = $opt_u || DB_USER;
+my $pass = $opt_p || DB_PASSWORD;
 $opt_D ||= 0;
 
-if ($pass) { local $ENV{PGPASSWORD} = $pass }
-system("dropdb", '-U', $user, $db);
-system("createdb", '-U', $user, $db);
-system("$Bin/deploy", '-u', $user, '-d', $db, '-p', $pass,
+system( @{+DB_DROP_CMD} );
+system("$Bin/deploy", '-u', $user, '-p', $pass,
        ($opt_T ? '-T' : ()), '-D', $opt_D);
 
 sub usage {

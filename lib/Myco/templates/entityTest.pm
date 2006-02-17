@@ -1,7 +1,7 @@
 package Myco::Foo::Test;
 
 ###############################################################################
-# $Id: entityTest.pm,v 1.1.1.1 2004/11/22 19:16:02 owensc Exp $
+# $Id: entityTest.pm,v 1.3 2006/02/17 18:22:39 sommerb Exp $
 #
 # See license and copyright near the end of this file.
 ###############################################################################
@@ -22,11 +22,11 @@ unit tests for features of Myco::Foo
 
 =cut
 
-our $VERSION = 0.01;
+our $VERSION = 1.0;
 
 =item Repository
 
-$Revision$ $Date$
+$Revision: 1.3 $ $Date: 2006/02/17 18:22:39 $
 
 =back
 
@@ -70,8 +70,8 @@ my %test_parameters =
    #    to disable related tests
    simple_accessor => 'fooattrib',
 
-   #skip_persistence => 1,     # skip persistence tests?  (defaults to false)
-   #standalone => 1,           # don't compile Myco entity classes
+   skip_persistence => 1,     # skip persistence tests?
+   #standalone => 0,           # don't compile Myco entity classes
 
    # Default attribute values for use when constructing objects
    #    Needed for any 'required' attributes

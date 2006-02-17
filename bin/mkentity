@@ -7,8 +7,8 @@ use File::Spec::Functions;
 use File::Path qw(mkpath);
 use FindBin qw($Bin);
 
-# Set lib path to ../classes in platform neutral manner.  Whoo-wee!
-my $mycolib = catdir($Bin, updir(), "classes");
+# Set lib path to ../lib in platform neutral manner.  Whoo-wee!
+my $mycolib = catdir($Bin, updir(), "lib");
 my $mycotestlib = catdir($Bin, updir(), "test");
 eval "use lib '$mycolib'";
 

@@ -14,11 +14,11 @@ Myco::Install - support library for installation system scripts
 
 =cut
 
-our $VERSION = 0.01;
+our $VERSION = 1.0;
 
 =item Repository
 
-$Revision$ $Date$
+$Revision: 1.2 $ $Date: 2006/02/17 18:22:38 $
 
 =back
 

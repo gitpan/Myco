@@ -1,5 +1,5 @@
 #
-# $Id: Suite.pm,v 1.1.1.1 2004/11/22 19:16:05 owensc Exp $
+# $Id: Suite.pm,v 1.1.1.1 2005/12/09 18:08:47 sommerb Exp $
 
 package Myco::Test::Suite;
 use Test::Unit::TestRunner;

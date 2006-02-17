@@ -20,7 +20,7 @@ $SIG{__WARN__} = sub {
     print "\n";
 };
 
-our ($opt_d, $opt_u, $opt_p, $opt_h, $opt_T, $opt_D);
+our ($opt_u, $opt_p, $opt_h, $opt_T, $opt_D);
 BEGIN {
     getopts('d:u:p:hTD:');
     $ENV{TANGRAM_TRACE} = $opt_T ? 1 : 0;
@@ -33,21 +33,50 @@ require Tangram;
 require DBI;
 require Myco;
 
-my $db = $opt_d || $ENV{PGDATABASE} || getpwuid $>;
-my $user = $opt_u || $ENV{PGUSER} || getpwuid $>;
-my $pass = $opt_p || $ENV{PGPASSWORD} || '';
+use Myco::Config qw(:database);
+
+my $user = $opt_u || DB_USER;
+my $pass = $opt_p || DB_PASSWORD;
 DBI->trace($opt_D || 0);
 
-my $dbh = DBI->connect("dbi:Pg:dbname=$db", $user, $pass);
+# create the database - it'll fail gently of it exists
+system( @{+DB_CREATE_CMD} );
+
+my $dbh = DBI->connect(DB_DSN, $user, $pass);
 unless (Myco::Schema->schema) {
     Myco::Schema::mkschema();
 }
 # Deploy it!
 {
-    local $SIG{__WARN__} = sub {}; # ignore warnings please
-    eval { Tangram::Relational->deploy(Myco::Schema->schema, $dbh); };
-    print $@ ? "exception while deploying database:\n\n $@\n"
-             :"Database Deployed!\nNow try running the testrun script\n"
+   my $db_already_deployed = 0;
+    my $msg = '';
+
+    # squelch new 5.8-type warnings
+    local $SIG{__WARN__} = sub {};
+
+    # inspect $schema for new classes and deploy them
+    my $schema = Myco::Schema->schema;
+    for my $class_name ( keys %{$schema->{classes}} ) {
+        my $class_obj = $schema->{classes}->{$class_name};
+        my $table = $class_obj->{table};
+        my $table_exists = $dbh->do("select * from $table");
+        if ($table_exists) {
+            $db_already_deployed = 1;
+            delete $schema->{classes}->{$class_name};
+        } else {
+            $msg .= "$table deployed\n";
+        }
+    }
+
+    if (! $db_already_deployed or $msg) {
+        Tangram::Relational->deploy($schema, $dbh);
+        print $msg . "\nSchema Deployed\n";
+    } else {
+        print "No New Schema to Deploy\n";
+    }
+
+    $dbh->disconnect;
+
 }
 
 $dbh->disconnect;
