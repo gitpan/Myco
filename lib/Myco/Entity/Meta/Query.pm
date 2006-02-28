@@ -1,28 +1,18 @@
 package Myco::Entity::Meta::Query;
 
 ###############################################################################
-# $Id: Query.pm,v 1.3 2006/02/17 18:22:39 sommerb Exp $
+# $Id: Query.pm,v 1.4 2006/02/24 15:03:14 sommerb Exp $
 ###############################################################################
 
 =head1 NAME
 
 Myco::Entity::Meta::Query - a Myco entity class
 
-=head1 VERSION
-
 =over 4
-
-=item Release
-
-0.01
-
-=cut
-
-our $VERSION = 1.0;
 
 =item Repository
 
-$Revision: 1.3 $ $Date: 2006/02/17 18:22:39 $
+$Revision: 1.4 $ $Date: 2006/02/24 15:03:14 $
 
 =back
 

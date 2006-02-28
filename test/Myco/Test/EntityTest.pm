@@ -1,7 +1,7 @@
 package Myco::Test::EntityTest;
 
 ###############################################################################
-# $Id: EntityTest.pm,v 1.1.1.1 2005/12/09 18:08:47 sommerb Exp $
+# $Id: EntityTest.pm,v 1.2 2006/02/27 23:03:20 sommerb Exp $
 #
 # See license and copyright near the end of this file.
 ###############################################################################
@@ -257,7 +257,7 @@ with any tests unique to a given entity.
 
 =head1 LICENSE AND COPYRIGHT
 
-Copyright (c) 2004 the myco project. All rights reserved.
+Copyright (c) 2006 the myco project. All rights reserved.
 This software is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself.
 

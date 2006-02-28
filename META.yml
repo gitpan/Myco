@@ -1,14 +1,14 @@
 # http://module-build.sourceforge.net/META-spec.html
 #XXXXXXX This is a prototype!!!  It will change in the future!!! XXXXX#
 name:         Myco
-version:      1
+version:      1.1
 version_from: lib/Myco.pm
 installdirs:  site
 requires:
     Bit::Vector:                   0
     Class::Data::Inheritable:      0
     Class::Inner:                  0
-    Class::Tangram:                1.15
+    Class::Tangram:                1.57
     Data::Lazy:                    0.6
     Date::Calc:                    0
     Date::Manip:                   0
@@ -16,6 +16,7 @@ requires:
     DBI:                           0
     Devel::StackTrace:             0
     Devel::Symdump:                0
+    Digest::SHA1:                  0
     Error:                         0
     Exception::Class:              0
     Locale::SubCountry:            0

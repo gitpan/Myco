@@ -1,7 +1,7 @@
 package Myco::Config;
 
 ################################################################################
-# $Id: Config.pm,v 1.2 2006/02/17 18:22:38 sommerb Exp $
+# $Id: Config.pm,v 1.5 2006/02/28 18:25:23 sommerb Exp $
 #
 # See license and copyright near the end of this file.
 ################################################################################
@@ -11,24 +11,6 @@ package Myco::Config;
 =head1 NAME
 
 Myco::Config - Myco Configuration Module
-
-=head1 VERSION
-
-=over 4
-
-=item Release
-
-0.01
-
-=cut
-
-our $VERSION = 1.0;
-
-=item Repository
-
-$Revision: 1.2 $ $Date: 2006/02/17 18:22:38 $
-
-=back
 
 =head1 SYNOPSIS
 
@@ -80,27 +62,36 @@ use base qw(Exporter);
 our (@EXPORT_OK,  %EXPORT_TAGS);
 
 BEGIN {
-    # Load the configuration file.
-    my $conf_file = $ENV{MYCO_ROOT} || '/usr/local/etc/myco';
-    $conf_file = catfile($conf_file, 'conf', 'myco.conf');
+  # Load the configuration file.
+  my $conf_file = '';
+  if (-f '/etc/myco.conf') {
+    $conf_file = '/etc/myco.conf';
+  } elsif (-f '/usr/local/etc/myco.conf') {
+    $conf_file = '/usr/local/etc/myco.conf';
+  } elsif (-f '/usr/local/etc/myco/conf/myco.conf') {
+    $conf_file = '/usr/local/etc/myco/conf/myco.conf';
+  } elsif ($ENV{MYCO_ROOT}) {
+    $conf_file = catfile($ENV{MYCO_ROOT}, 'conf', 'myco.conf');
+  } else {
     Myco::Exception::Stat->throw
-      (error => "No such configuration file '$conf_file'")
-      unless -f $conf_file;
-    local $/;
-    open CONF, $conf_file or
-      Myco::Exception::IO->throw(error => "Cannot open $conf_file: $!");
-    my %conf = eval <CONF>;
-    close CONF;
-    while (my ($label, $set) = each %conf) {
-        my @export;
-        while (my ($const, $val) = each %$set) {
-	  eval "use constant $const => \$val";
-	  push @EXPORT_OK, $const;
-	  push @export, $const;
-        }
-        $EXPORT_TAGS{$label} = \@export;
+	(error => "Could not stat configuration file 'myco.conf'");
+  }
+
+  local $/;
+  open CONF, $conf_file or
+    Myco::Exception::IO->throw(error => "Cannot open $conf_file: $!\n");
+  my %conf = eval <CONF>;
+  close CONF;
+  while (my ($label, $set) = each %conf) {
+    my @export;
+    while (my ($const, $val) = each %$set) {
+      eval "use constant $const => \$val";
+      push @EXPORT_OK, $const;
+      push @export, $const;
     }
-    $EXPORT_TAGS{all} = \@EXPORT_OK;
+    $EXPORT_TAGS{$label} = \@export;
+  }
+  $EXPORT_TAGS{all} = \@EXPORT_OK;
 }
 
 1;
@@ -108,7 +99,7 @@ __END__
 
 =head1 LICENSE AND COPYRIGHT
 
-Copyright (c) 2004 the myco project. All rights reserved.
+Copyright (c) 2006 the myco project. All rights reserved.
 This software is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself.
 

@@ -1,7 +1,7 @@
 package Myco::Query::Part::Filter;
 
 ###############################################################################
-# $Id: Filter.pm,v 1.3 2006/02/17 18:22:39 sommerb Exp $
+# $Id: Filter.pm,v 1.5 2006/02/27 23:03:19 sommerb Exp $
 #
 # See license and copyright near the end of this file.
 ###############################################################################
@@ -9,24 +9,6 @@ package Myco::Query::Part::Filter;
 =head1 NAME
 
 Myco::Query::Part::Filter - a Myco entity class
-
-=head1 VERSION
-
-=over 4
-
-=item Release
-
-0.01
-
-=cut
-
-our $VERSION = 1.0;
-
-=item Repository
-
-$Revision: 1.3 $ $Date: 2006/02/17 18:22:39 $
-
-=back
 
 =head1 SYNOPSIS
 
@@ -351,7 +333,7 @@ __END__
 
 =head1 LICENSE AND COPYRIGHT
 
-Copyright (c) 2004 the myco project. All rights reserved.
+Copyright (c) 2006 the myco project. All rights reserved.
 This software is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself.
 

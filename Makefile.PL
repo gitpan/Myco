@@ -1,7 +1,9 @@
 
-# $Id: Makefile.PL,v 1.12 2006/02/17 20:31:05 sommerb Exp $
+# $Id: Makefile.PL,v 1.15 2006/02/28 18:25:23 sommerb Exp $
 
 use ExtUtils::MakeMaker;
+
+my $DEBUG = 1;
 
 #
 # Helpful Subroutines
@@ -29,19 +31,40 @@ sub module_prereqs {
     }
   }
   close ADM;
+
   return $prereqs;
 }
+
+
+#use CPAN();
+#my $prereqs = module_prereqs();
+#if ($DEBUG) { use Data::Dumper; print Dumper $prereqs; }
+#for $mod (keys %$prereqs) {
+#  my $obj = CPAN::Shell->expand('Module', $mod);
+#  warn "checking if $mod is installed\n" if $DEBUG;
+#  next unless $obj && ! $obj->inst_file;
+#  my $req_version = $prereqs->{$mod} || '';
+#  if ($req_version) {
+#    warn "checking $mod version\n" if $DEBUG;
+#    my $version = $obj->inst_version || '';
+#    if ($req_version != $version) {
+#      warn "version $version of $mod installed - we need $req_version\n";
+#      next;
+#    }
+#  }
+#  $obj->install;
+#}
 
 
 #
 # Some Install dialog
 #
 
+use lib '.';
+
 my $skip_tests;
 
 do { $skip_tests = 1; goto NOTESTS } if $skip_tests or $bomb_out;
-
-use lib '.';
 
 sub yes {
   print ' (Y/n) ';
@@ -150,7 +173,33 @@ if ($skip_tests) {
     print "TEST SUITE IS DISABLED\n";
     $tests = "t/no_tests.t";
 } else {
-    $tests = "t/test_unit_testcase.t";
+  # add new tests here
+    my @tests = qw(
+		   test_unit_testcase.t
+		  );
+    $tests = join '', map {"t/$_ "} @tests;
+}
+
+# copy myco.conf over to /etc on install
+sub MY::postamble {
+  my $conf_dir = '';
+  my $os = $^O;
+  if ($os =~ /\w+bsd$/) {
+    $conf_dir = '/usr/local/etc';
+  } elsif ($os eq 'linux' || $os =~ m/cygwin/g) {
+    $conf_dir = '/etc';
+  } else {
+    return '';
+  }
+
+  my $moveit = -f "$conf_dir/myco.conf" ?
+    "mv $conf_dir/myco.conf $conf_dir/myco.conf.old && "
+      : '';
+
+  return "
+install ::
+\t" . $moveit . "cp conf/myco.conf $conf_dir";
+
 }
 
 WriteMakefile(

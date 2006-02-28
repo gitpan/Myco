@@ -1,7 +1,7 @@
 package Myco;
 
 ###############################################################################
-# $Id: Myco.pm,v 1.2 2006/02/17 18:22:38 sommerb Exp $
+# $Id: Myco.pm,v 1.5 2006/02/27 23:12:51 sommerb Exp $
 #
 # See license and copyright near the end of this file.
 ###############################################################################
@@ -16,17 +16,11 @@ Myco - The myco object framework
 
 =item Release
 
-0.11
+1.1
 
 =cut
 
-our $VERSION = 1.0;
-
-=item Repository
-
-$Revision: 1.2 $ $Date: 2006/02/17 18:22:38 $
-
-=back
+our $VERSION = 1.1;
 
 =head1 SYNOPSIS
 
@@ -224,7 +218,7 @@ for performance reasons.
 
 =head1 LICENSE AND COPYRIGHT
 
-Copyright (c) 2004 the myco project. All rights reserved.
+Copyright (c) 2006 the myco project. All rights reserved.
 This software is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself.
 

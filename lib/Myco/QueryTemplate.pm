@@ -1,30 +1,12 @@
 package Myco::QueryTemplate;
 
 ###############################################################################
-# $Id: QueryTemplate.pm,v 1.5 2006/02/17 18:22:38 sommerb Exp $
+# $Id: QueryTemplate.pm,v 1.6 2006/02/27 22:55:55 sommerb Exp $
 ###############################################################################
 
 =head1 NAME
 
 Myco::QueryTemplate - a Myco template class
-
-=head1 VERSION
-
-=over 4
-
-=item Release
-
-0.01
-
-=cut
-
-our $VERSION = 1.0;
-
-=item Repository
-
-$Revision: 1.5 $ $Date: 2006/02/17 18:22:38 $
-
-=back
 
 =head1 DESCRIPTION
 

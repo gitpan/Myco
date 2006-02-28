@@ -1,7 +1,7 @@
 package Myco::Entity::SampleEntityBase;
 
 ###############################################################################
-# $Id: SampleEntityBase.pm,v 1.3 2006/02/17 18:22:39 sommerb Exp $
+# $Id: SampleEntityBase.pm,v 1.4 2006/02/27 22:55:55 sommerb Exp $
 #
 # See license and copyright near the end of this file.
 ###############################################################################
@@ -9,26 +9,6 @@ package Myco::Entity::SampleEntityBase;
 =head1 NAME
 
 Myco::Entity::SampleEntityBase - a Myco entity class.
-
--- thingies that do such and such
-
-=head1 VERSION
-
-=over 4
-
-=item Release
-
-0.01
-
-=cut
-
-our $VERSION = 1.0;
-
-=item Repository
-
-$Revision: 1.3 $ $Date: 2006/02/17 18:22:39 $
-
-=back
 
 =head1 SYNOPSIS
 
@@ -107,12 +87,10 @@ $metadata->activate_class;
 1;
 __END__
 
-=back
-
 
 =head1 LICENSE AND COPYRIGHT
 
-Copyright (c) 2004 the myco project. All rights reserved.
+Copyright (c) 2006 the myco project. All rights reserved.
 This software is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself.
 

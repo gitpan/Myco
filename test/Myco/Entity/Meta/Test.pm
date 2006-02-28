@@ -1,7 +1,7 @@
 package Myco::Entity::Meta::Test;
 
 ###############################################################################
-# $Id: Test.pm,v 1.1.1.1 2005/12/09 18:08:47 sommerb Exp $
+# $Id: Test.pm,v 1.2 2006/02/27 23:03:20 sommerb Exp $
 #
 # See license and copyright near the end of this file.
 ###############################################################################
@@ -14,15 +14,15 @@ unit tests for features of Myco::Entity::Meta
 
 =head1 VERSION
 
-$Revision: 1.1.1.1 $
+$Revision: 1.2 $
 
 =cut
 
-our $VERSION = (qw$Revision: 1.1.1.1 $ )[-1];
+our $VERSION = (qw$Revision: 1.2 $ )[-1];
 
 =head1 DATE
 
-$Date: 2005/12/09 18:08:47 $
+$Date: 2006/02/27 23:03:20 $
 
 =head1 SYNOPSIS
 
@@ -667,7 +667,7 @@ sub tear_down {
 
 =head1 LICENSE AND COPYRIGHT
 
-Copyright (c) 2004 the myco project. All rights reserved.
+Copyright (c) 2006 the myco project. All rights reserved.
 This software is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself.
 

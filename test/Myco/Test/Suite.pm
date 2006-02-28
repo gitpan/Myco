@@ -1,11 +1,9 @@
 #
-# $Id: Suite.pm,v 1.1.1.1 2005/12/09 18:08:47 sommerb Exp $
+# $Id: Suite.pm,v 1.2 2006/02/24 15:04:12 sommerb Exp $
 
 package Myco::Test::Suite;
 use Test::Unit::TestRunner;
 use Test::Unit::TestSuite;
-#use Test::Unit::tests::SuiteTest;
-#use Test::Unit::InnerClass;
 use File::Find;
 use File::Path;
 
@@ -15,7 +13,7 @@ our $TESTROOT = "../lib";
 BEGIN {
     # Set a flag to let any classes that need to know know that they're running
     # as part of the suite.
-    $VERSION = (qw$Revision: 1.1.1.1 $ )[-1];
+    $VERSION = (qw$Revision: 1.2 $ )[-1];
     $ENV{MYCO_TEST_SUITE} = "Myco::Test::Suite $VERSION";
 
     # Now set up a temporary temp directory specification.

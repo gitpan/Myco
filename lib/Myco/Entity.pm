@@ -1,7 +1,7 @@
 package Myco::Entity;
 
 ###############################################################################
-# $Id: Entity.pm,v 1.2 2006/01/10 22:53:42 sommerb Exp $
+# $Id: Entity.pm,v 1.3 2006/02/27 23:03:19 sommerb Exp $
 #
 # See license and copyright near the end of this file.
 ###############################################################################
@@ -604,7 +604,7 @@ class methods of the class Myco.  See L<Myco|Myco>.
 
 =head1 LICENSE AND COPYRIGHT
 
-Copyright (c) 2004 the myco project. All rights reserved.
+Copyright (c) 2006 the myco project. All rights reserved.
 This software is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself.
 

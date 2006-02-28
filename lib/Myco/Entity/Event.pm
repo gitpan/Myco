@@ -1,7 +1,7 @@
 package Myco::Entity::Event;
 
 ###############################################################################
-# $Id: Event.pm,v 1.2 2006/02/17 18:22:38 sommerb Exp $
+# $Id: Event.pm,v 1.3 2006/02/27 22:55:55 sommerb Exp $
 #
 # See license and copyright near the end of this file.
 ###############################################################################
@@ -9,24 +9,6 @@ package Myco::Entity::Event;
 =head1 NAME
 
 Myco::Entity::Event - a Myco entity class
-
-=head1 VERSION
-
-=over 4
-
-=item Release
-
-0.01
-
-=cut
-
-our $VERSION = 1.0;
-
-=item Repository
-
-$Revision: 1.2 $ $Date: 2006/02/17 18:22:38 $
-
-=back
 
 =head1 SYNOPSIS
 
@@ -303,7 +285,8 @@ $md->add_attribute( name => 'date',
 
  type: transient
 
-The entity object about which an event is being recorded. Intitalized with a reference to it.
+The entity object about which an event is being recorded. Intitalized with a
+reference to it.
 
 =cut
 
