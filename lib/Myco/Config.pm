@@ -1,7 +1,7 @@
 package Myco::Config;
 
 ################################################################################
-# $Id: Config.pm,v 1.5 2006/02/28 18:25:23 sommerb Exp $
+# $Id: Config.pm,v 1.8 2006/03/17 22:04:31 sommerb Exp $
 #
 # See license and copyright near the end of this file.
 ################################################################################
@@ -15,16 +15,21 @@ Myco::Config - Myco Configuration Module
 =head1 SYNOPSIS
 
   # In myco.conf:
-  foobar  => {
-              FOOBAR_PORT_NUM   => 6288,
-              FOOBAR_HOST   => 'localhost'
-            },
-  barbaz  => {
-              BARBAZ_USER => 'bazdude',
-              BARBAZ_PROFILE => { uid => 1999,
-                                  gid => 1999, },
-            },
+  <foobar>
+      FOOBAR_PORT_NUM = 6288
+      FOOBAR_HOST = localhost
+  </foobar>  
+  <barbaz>
+      BARBAZ_USER = bazdude
+      <BARBAZ_PROFILE>
+          uid = 1999
+          gid = 1999
+      <BARBAZ_PROFILE>
+  </barbaz>
+  
+  <<include my_myco_app.conf>>
 
+  
   # In a Myco entity class:
   use Myco::Config qw(:foobar);
 
@@ -37,20 +42,25 @@ Myco::Config - Myco Configuration Module
 =head1 DESCRIPTION
 
 This module reads in a configuration file and sets up a bunch of constants
-that can be used in Myco. The configuration file consists of Perl code that,
-when C<eval>ed by Myco::Config, generates a hash of hash references. Each hash
-reference is turned into a series of constants, one for each key/value pair.
-The keys in the main hash are turned into labels under which the constants
-generated from the hash reference in the keys' values are listed. This makes
-it very simple to create export tags that can be used in modules to import
-only the constants associated with a given label.
+that are used in the Myco framework. It will also parse any external config
+files included from within L<conf/myco.conf>, enabling myco-based applications
+to make centralized use of Myco::Config.
 
-While no constants are exported by Myco::Config by default, the special
-C<all> tag can be used to export I<all> of the constants created from the
-configuration file:
+Myco::Config generates a series of constants for the values in a configuration
+file. The top-level config blocks are converted to labels under which the
+constants are listed. This makes it very simple to create export tags that can
+be used in modules to import only the constants associated with a given label.
+
+While no constants are exported by Myco::Config by default, the special C<all>
+tag can be used to export I<all> of the constants created from the
+configuration file, as well as included files:
 
   use Myco::Config qw(:all);
-
+  
+Configuration files are parsed using 
+L<Config::General|Config::General> and their syntax should conform to its
+requirements. See L<conf/myco.conf-dist> and L<conf/myco.conf-dist> for an
+example.
 
 =cut
 
@@ -58,36 +68,37 @@ use strict;
 use warnings;
 use Myco::Exceptions;
 use File::Spec::Functions qw(catfile);
+use Myco::Util::Misc;
+use Config::General;
 use base qw(Exporter);
-our (@EXPORT_OK,  %EXPORT_TAGS);
+our (@EXPORT_OK, %EXPORT_TAGS);
 
 BEGIN {
   # Load the configuration file.
   my $conf_file = '';
-  if (-f '/etc/myco.conf') {
+  if ($ENV{MYCO_ROOT}) {
+    $conf_file = catfile($ENV{MYCO_ROOT}, 'conf', 'myco.conf');
+  } elsif (-f '/etc/myco.conf') {
     $conf_file = '/etc/myco.conf';
   } elsif (-f '/usr/local/etc/myco.conf') {
     $conf_file = '/usr/local/etc/myco.conf';
-  } elsif (-f '/usr/local/etc/myco/conf/myco.conf') {
-    $conf_file = '/usr/local/etc/myco/conf/myco.conf';
-  } elsif ($ENV{MYCO_ROOT}) {
-    $conf_file = catfile($ENV{MYCO_ROOT}, 'conf', 'myco.conf');
   } else {
     Myco::Exception::Stat->throw
-	(error => "Could not stat configuration file 'myco.conf'");
+        (error => "Could not stat configuration file 'myco.conf'");
   }
 
-  local $/;
-  open CONF, $conf_file or
-    Myco::Exception::IO->throw(error => "Cannot open $conf_file: $!\n");
-  my %conf = eval <CONF>;
-  close CONF;
+  my %conf = ParseConfig( -ConfigFile => $conf_file, -IncludeRelative => 1 );
+
   while (my ($label, $set) = each %conf) {
     my @export;
-    while (my ($const, $val) = each %$set) {
-      eval "use constant $const => \$val";
-      push @EXPORT_OK, $const;
-      push @export, $const;
+      while (my ($const, $val) = each %$set) {
+        # convert blank-value hash refs to array refs, based on keys
+        if (ref $val eq 'HASH') {
+            $val = Myco::Util::Misc->hash_with_no_values_to_array($val);
+        }
+        eval "use constant $const => \$val";
+        push @EXPORT_OK, $const;
+        push @export, $const;
     }
     $EXPORT_TAGS{$label} = \@export;
   }

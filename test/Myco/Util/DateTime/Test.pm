@@ -1,7 +1,7 @@
 package Myco::Util::DateTime::Test;
 
 ###############################################################################
-# $Id: Test.pm,v 1.1.1.1 2005/12/09 18:08:47 sommerb Exp $
+# $Id: Test.pm,v 1.2 2006/03/17 22:41:32 sommerb Exp $
 #
 # See license and copyright near the end of this file.
 ###############################################################################
@@ -12,17 +12,9 @@ Myco::Util::DateTime::Test -
 
 unit tests for features of Myco::Util::DateTime
 
-=head1 VERSION
-
-$Revision: 1.1.1.1 $
-
-=cut
-
-our $VERSION = (qw$Revision: 1.1.1.1 $ )[-1];
-
 =head1 DATE
 
-$Date: 2005/12/09 18:08:47 $
+$Date: 2006/03/17 22:41:32 $
 
 =head1 SYNOPSIS
 

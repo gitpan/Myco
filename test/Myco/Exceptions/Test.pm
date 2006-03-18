@@ -1,7 +1,7 @@
 package Myco::Exceptions::Test;
 
 ################################################################################
-# $Id: Test.pm,v 1.2 2006/02/27 23:03:20 sommerb Exp $
+# $Id: Test.pm,v 1.3 2006/03/17 22:41:32 sommerb Exp $
 #
 # See license and copyright near the end of this file.
 ################################################################################
@@ -12,20 +12,11 @@ package Myco::Exceptions::Test;
 
 Myco::Exceptions::Test - Myco::Exceptions unit tester.
 
-=head1 VERSION
-
-$Revision: 1.2 $
-
-=cut
-
-# Grab the Version Number.
-our $VERSION = (qw$Revision: 1.2 $ )[-1];
-
 =pod
 
 =head1 DATE
 
-$Date: 2006/02/27 23:03:20 $
+$Date: 2006/03/17 22:41:32 $
 
 =head1 SYNOPSIS
 

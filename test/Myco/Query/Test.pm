@@ -1,7 +1,7 @@
 package Myco::Query::Test;
 
 ###############################################################################
-# $Id: Test.pm,v 1.2 2005/12/13 19:51:24 sommerb Exp $
+# $Id: Test.pm,v 1.3 2006/03/17 22:41:32 sommerb Exp $
 ###############################################################################
 
 =head1 NAME
@@ -10,17 +10,9 @@ Myco::Query::Test -
 
 unit tests for features of Myco::Query
 
-=head1 VERSION
-
-$Revision: 1.2 $
-
-=cut
-
-our $VERSION = (qw$Revision: 1.2 $ )[-1];
-
 =head1 DATE
 
-$Date: 2005/12/13 19:51:24 $
+$Date: 2006/03/17 22:41:32 $
 
 =head1 SYNOPSIS
 

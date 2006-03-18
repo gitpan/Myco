@@ -1,7 +1,7 @@
 package Myco::Schema;
 
 ###############################################################################
-# $Id: Schema.pm,v 1.3 2006/01/11 22:36:30 sommerb Exp $
+# $Id: Schema.pm,v 1.5 2006/03/17 20:59:08 sommerb Exp $
 #
 # See license and copyright near the end of this file.
 ###############################################################################
@@ -74,10 +74,13 @@ sub mkschema {
   # now collect and compile ancillary schema from myco.conf
   use Myco::Config qw(:schema);
 
-  for my $class (@{+SCHEMA_ENTITY_CLASSES}) {
-    eval "use $class";
-    my $this_class_schema = eval '$'.$class.'::schema';
-    push @$schema_classes, ($class => $this_class_schema);
+  if (SCHEMA_ENTITY_CLASSES) {
+    my $classes = Myco::Util::Misc->hash_with_no_values_to_array($val);
+    for my $class (@$classes) {
+      eval "use $class";
+      my $this_class_schema = eval '$'.$class.'::schema';
+      push @$schema_classes, ($class => $this_class_schema);
+    }
   }
 
   $dbschema = Tangram::Schema->new({ classes =>  $schema_classes } );

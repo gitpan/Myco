@@ -1,9 +1,15 @@
 
-# $Id: Makefile.PL,v 1.15 2006/02/28 18:25:23 sommerb Exp $
+# $Id: Makefile.PL,v 1.21 2006/03/18 18:33:35 sommerb Exp $
 
-use ExtUtils::MakeMaker;
+use lib '.';
 
-my $DEBUG = 1;
+use inc::Module::Install;
+
+# some wide-scoped variables
+my $run_tests;
+my $yes_tests = 't/test_unit_testcase.t';
+my $no_tests = 't/no_tests.t';
+my @scripts_to_install;
 
 #
 # Helpful Subroutines
@@ -14,7 +20,7 @@ sub module_prereqs {
   # using this code, we record module dependencies
   # in one place - Myco::Admin
 
-  my $prereqs;
+  my %prereqs;
   my @mod;
   open(ADM, "lib/Myco/Admin.pod")
     or die "Unable to open lib/Myco/Admin.pod : $!";
@@ -25,80 +31,151 @@ sub module_prereqs {
   # read in modules
   while (<ADM>) {
     if (/^=item\s+(\S+)(?:\s+([\d\.]+))?(?:\s+(\(optional\)))?/) {
-      $prereqs->{$1} = $2 || 0;
+      $prereqs{$1} = $2 || 0;
     } elsif (/END MODULE LIST/) {
       last;
     }
   }
   close ADM;
 
-  return $prereqs;
+  return %prereqs;
 }
 
+# figure out where this platform's /etc and userland /bin are located
+sub get_etc_or_bin {
+  my $etc_or_bin = shift;
+  return '/usr/local/bin' if $etc_or_bin eq 'bin';
+  my $etc = '';
+  my $os = $^O;
+  if ($os =~ /\w+bsd$/) {
+    $etc = '/usr/local/etc';
+  } elsif ($os eq 'linux' || $os =~ m/cygwin|darwin|panther|tiger/g) {
+    $etc = '/etc';
+  }
+  return $etc;
+}
 
-#use CPAN();
-#my $prereqs = module_prereqs();
-#if ($DEBUG) { use Data::Dumper; print Dumper $prereqs; }
-#for $mod (keys %$prereqs) {
-#  my $obj = CPAN::Shell->expand('Module', $mod);
-#  warn "checking if $mod is installed\n" if $DEBUG;
-#  next unless $obj && ! $obj->inst_file;
-#  my $req_version = $prereqs->{$mod} || '';
-#  if ($req_version) {
-#    warn "checking $mod version\n" if $DEBUG;
-#    my $version = $obj->inst_version || '';
-#    if ($req_version != $version) {
-#      warn "version $version of $mod installed - we need $req_version\n";
-#      next;
-#    }
-#  }
-#  $obj->install;
-#}
-
-
-#
-# Some Install dialog
-#
-
-use lib '.';
-
-my $skip_tests;
-
-do { $skip_tests = 1; goto NOTESTS } if $skip_tests or $bomb_out;
+# this enables the ugly hacks below
+sub remove_file_from_manifest {
+  my $test_to_remove = shift;
+  open M, 'MANIFEST';
+  my $f = '';
+  for (<M>) {
+    $f .= $_ unless $_ =~ /$test_to_remove/;
+  }
+  close M;
+  open M, ">MANIFEST";
+  print M $f;
+  close M;
+}
 
 sub yes {
   print ' (Y/n) ';
   return <STDIN> =~ /^(Y(e(s)?)?|A(YE|II+!*))?\n?$/i;
 }
 
-print q{
-Do you plan to run the test suite?
-(Myco only provides explicit support for PostreSQL)};
+# copy myco.conf over to this platform's /etc on install,
+# and optionally the bin scripts
+sub MY::postamble {
+  my $etc = get_etc_or_bin('etc');
+  my $copy_scripts = '';
+  my $bin = get_etc_or_bin('bin');
+  for my $script (@scripts_to_install) {
+    $copy_scripts .= "\n\tcp bin/$script $bin/myco-$script";
+  }
+  
+  my $move_etc = -f "$etc/myco.conf" ?
+    "mv $etc/myco.conf $etc/myco.conf.old && "
+      : '';
 
-do { $skip_tests = 1; goto NOTESTS } unless yes();
+  return inc::Module::AutoInstall::postamble . "
+install ::
+\t" . $move_etc . "cp conf/myco.conf-dist $etc" . $copy_scripts;
 
-my ($cs, $user, $passwd);
-
-print q{Please give me the login and password for accessing the test database.
-I must be able to create and drop tables in that database.};
-
-print "\n1) DBI connect string (include the \'DBI:\' part): ";
-$cs = <STDIN>;
-chop $cs;
-
-unless ($cs =~ m/:pg:/) {
-    print "Please note: only the PostreSQL is support\n";
 }
 
-print "2) Login: ";
-$user = <STDIN>;
-chop $user;
 
-print "3) Password: ";
-$passwd = <STDIN>;
-chop $passwd;
+#
+# HERE WE GO!
+#
 
-print <<'MSG';
+print '
+Do you plan to run the test suite? You will need all modules installed before
+typing \'make test\', as well as a database server installed and configured
+(Myco only provides explicit support for PostreSQL)';
+
+if (yes()) {
+  $run_tests = 1;
+  # HACK!!
+  rename $no_tests,  "$no_tests.skip";
+  remove_file_from_manifest($no_tests);
+} else {
+  print "TEST SUITE IS DISABLED\n";
+  # another HACK!!
+  rename $yes_tests, "$yes_tests.skip";
+  remove_file_from_manifest($yes_tests);
+}
+
+print "
+Do you want to install the following scripts on your system?\n";
+
+print "\n ./bin/deploy?";
+push @scripts_to_install, 'deploy' if yes();
+print "\n ./bin/recycle?";
+push @scripts_to_install, 'recycle' if yes();
+print "\n ./bin/testrun?";
+push @scripts_to_install, 'testrun' if yes();
+print "\n ./bin/mkentity?";
+push @scripts_to_install, 'mkentity' if yes();
+print "\n ./bin/probe?";
+push @scripts_to_install, 'probe' if yes();
+
+if (@scripts_to_install) {
+  print "\nThanks! These will be placed in your \$PATH and renamed ";
+  for my $script (@scripts_to_install) {
+    print $script eq $scripts_to_install[$#scripts_to_install]
+      ? "and myco-$script\n" : "myco-$script, ";
+  }
+  print "\n";
+}
+sleep 2;
+
+name('Myco');
+requires( module_prereqs() );
+include_deps('Test::More');
+include('ExtUtils::AutoInstall');
+version_from('lib/Myco.pm'); # finds $VERSION
+license('perl');
+abstract('The myco object framework ');
+auto_install_now();
+
+#
+# a BIG if-then
+#
+if ($run_tests) {
+  my ($cs, $user, $passwd);
+
+  print "\nPlease give me the credentials for a user with priveledges to create a
+new test database, as well as a database name to use, though please embed it in
+the form of a DBI-friendly connect string.\n";
+
+  print "\n1) Connect string (DSN): ";
+  $cs = <STDIN>;
+  chop $cs;
+
+  unless ($cs =~ m/:pg:/i) {
+    print "Please note: only the PostreSQL is support\n";
+  }
+
+  print "2) Login: ";
+  $user = <STDIN>;
+  chop $user;
+
+  print "3) Password: ";
+  $passwd = <STDIN>;
+  chop $passwd;
+
+  print <<'MSG';
 
 Thank you. I am going to use this information to generate 'conf/myco.conf' 
 from conf/myco.conf-dist. If you have given me sensitive information, 
@@ -106,106 +183,69 @@ make sure to empty out _just_ this sensitive data only when the tests have
 been completed.
 MSG
 
-sleep 1;
+  sleep 1;
 
-my %config_replacements = ( DB_DSN => $cs,
-			    DB_USER => $user,
-			    DB_PASSWORD => $pass, );
+  my %config_replacements = ( DB_DSN => $cs,
+			      DB_USER => $user,
+			      DB_PASSWORD => $passwd, );
 
-my $dbname = $cs;
-$dbname =~ s/^.[^=]*=(.*)/$1/;
+  my $dbname = $cs;
+  $dbname =~ s/^.[^=]*=(.*)/$1/;
 
-if ($cs =~ m/:pg:/i) {
+  if ($cs =~ m/:pg:/i) {
 
-  $config_replacements{DB_DROP_CMD} =
-    '[qw(dropdb -U ' . $user . ' ' . $dbname . ')]';
-  $config_replacements{DB_CREATE_CMD} =
-    '[qw(createdb -U ' . $user . ' ' . $dbname . ')]';
+    $config_replacements{DB_DROP_CMD} =
+      'dropdb -U ' . $user . ' ' . $dbname;
+    $config_replacements{DB_CREATE_CMD} =
+      'createdb -U ' . $user . ' ' . $dbname;
 
-}
-
-open CONF_DIST, 'conf/myco.conf-dist';
-my $conf_dist;
-$conf_dist .= $_ for <CONF_DIST>;
-close CONF_DIST;
-
-while (my ($label, $value) = each(%config_replacements) ) {
-  if ($label =~ /create|drop/i) {
-    # inserting an un-stringified perl data structure here
-    $conf_dist =~ s/
-		    (.*$label\s\=\>\s)
-		    \'\s*\'
-		    (,\n.*)
-		   /$1$value$2/sx;
-  } else {
-    $conf_dist =~ s/
-		    (.*$label\s\=\>\s\')
-		    \s*
-		    (\',\n.*)
-		   /$1$value$2/sx;
   }
-}
 
+  open CONF_DIST, 'conf/myco.conf-dist';
+  my $conf_dist;
+  $conf_dist .= $_ for <CONF_DIST>;
+  close CONF_DIST;
 
-# now create working myco.conf file
-open CONF_WORKING, '>conf/myco.conf';
-print CONF_WORKING $conf_dist;
-close CONF_WORKING;
+  while (my ($label, $value) = each(%config_replacements) ) {
+    if ($label =~ /db_create_cmd|db_drop_cmd/i) {
+      # inserting an un-stringified perl data structure here
+      $conf_dist =~ s/
+		      (.*$label)
+		      \s*
+		      (\n.*)
+		      /$1 "$value"$2/sx;
+    } else {
+      $conf_dist =~ s/
+		      (.*$label)
+		      \s*
+		      (\n.*)
+		      /$1 "$value"$2/sx;
+    }
+  }
 
-use Cwd;
-$ENV{MYCO_ROOT} = cwd unless $ENV{MYCO_ROOT};
+  # now create working myco.conf file
+  open CONF_WORKING, '>conf/myco.conf';
+  print CONF_WORKING $conf_dist;
+  close CONF_WORKING;
 
-print <<'MSG';
+  use Cwd;
+  $ENV{MYCO_ROOT} = cwd unless $ENV{MYCO_ROOT};
+
+  print <<'MSG';
 
 Now creating and deploying the database...
 MSG
 
-system 'bin/deploy';
-
-
-###################################################
-# NO TESTS
-###################################################
-
-NOTESTS:
-my $tests;
-if ($skip_tests) {
-    print "TEST SUITE IS DISABLED\n";
-    $tests = "t/no_tests.t";
+  system 'bin/deploy';
+  
 } else {
-  # add new tests here
-    my @tests = qw(
-		   test_unit_testcase.t
-		  );
-    $tests = join '', map {"t/$_ "} @tests;
+  
+  print "\n***PLEASE NOTE***\n";
+  print "\nRefer to Myco::Admin for instructions on setting up a database,
+or else rerun Makefile.PL and select 'Y' when asked if you
+want to run the test suite, and a database will be created
+for you\n\n";
 }
 
-# copy myco.conf over to /etc on install
-sub MY::postamble {
-  my $conf_dir = '';
-  my $os = $^O;
-  if ($os =~ /\w+bsd$/) {
-    $conf_dir = '/usr/local/etc';
-  } elsif ($os eq 'linux' || $os =~ m/cygwin/g) {
-    $conf_dir = '/etc';
-  } else {
-    return '';
-  }
-
-  my $moveit = -f "$conf_dir/myco.conf" ?
-    "mv $conf_dir/myco.conf $conf_dir/myco.conf.old && "
-      : '';
-
-  return "
-install ::
-\t" . $moveit . "cp conf/myco.conf $conf_dir";
-
-}
-
-WriteMakefile(
-	      NAME	   => 'Myco',
-	      VERSION_FROM => 'lib/Myco.pm', # finds $VERSION
-	      PREREQ_PM    => module_prereqs(),
-	      PREREQ_FATAL => 0,
-	      test => { TESTS => $tests },
-);
+&Makefile->write;
+&Meta->write;

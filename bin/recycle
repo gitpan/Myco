@@ -1,12 +1,9 @@
-#!/usr/local/bin/perl -w
+#!/usr/bin/perl -w
 
 use warnings;
 use strict;
 use FindBin qw($Bin);
 use Getopt::Std;
-
-# Figure out wher to find the test classes.
-use lib "$Bin/../classes";
 
 our ($opt_d, $opt_u, $opt_p, $opt_h, $opt_T, $opt_D);
 getopts('d:u:p:hTD:');
@@ -19,7 +16,7 @@ my $user = $opt_u || DB_USER;
 my $pass = $opt_p || DB_PASSWORD;
 $opt_D ||= 0;
 
-system( @{+DB_DROP_CMD} );
+system( DB_DROP_CMD );
 system("$Bin/deploy", '-u', $user, '-p', $pass,
        ($opt_T ? '-T' : ()), '-D', $opt_D);
 

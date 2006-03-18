@@ -1,7 +1,7 @@
 package Myco::Exceptions;
 
 ################################################################################
-# $Id: Exceptions.pm,v 1.5 2006/02/27 23:03:19 sommerb Exp $
+# $Id: Exceptions.pm,v 1.6 2006/03/17 22:41:31 sommerb Exp $
 #
 # See license and copyright near the end of this file.
 ################################################################################
@@ -73,10 +73,6 @@ use Exception::Class ( 'Myco::Exception' => { description =>
                                    { description => 'Authorization exception.',
                                      isa => 'Myco::Exception' },
 
-                       'Myco::Exception::MalformedPassword' =>
-                                   { description => 'Malformed Password.',
-                                     isa => 'Myco::Exception' },
-
                        'Myco::Exception::Stat' =>
                                      { description => 'File status exception.',
                                        isa => 'Myco::Exception' },
@@ -92,15 +88,6 @@ use Exception::Class ( 'Myco::Exception' => { description =>
                        'Myco::Exception::Meta' =>
                                       { description => 'Meta data exception.',
                                         isa => 'Myco::Exception' },
-
-                       'Myco::Exception::MVC' =>
-                           { description => 'Model-View-Controller exception.',
-                             isa => 'Myco::Exception' },
-
-                       'Myco::Exception::MVC::PostAction' =>
-                           { description =>
-			       'Model-View-Controller PostAction exception.',
-                             isa => 'Myco::Exception::MVC' },
 
                        'Myco::Exception::Query' =>
                            { description => 'Query exception.',
@@ -122,7 +109,6 @@ use Exception::Class ( 'Myco::Exception' => { description =>
                        'Myco::Exception::Query::Filter' =>
                            { description => 'Missing Query Filter exception.',
                              isa => 'Myco::Exception::Query' },
-
                      );
 
 package Myco::Exception;

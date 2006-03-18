@@ -65,6 +65,8 @@ START MODULE LIST
 
 =item Class::Tangram 1.57
 
+=item Config::General
+
 =item DBD::Pg
 
 =item DBI

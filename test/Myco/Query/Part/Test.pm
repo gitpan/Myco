@@ -1,7 +1,7 @@
 package Myco::Query::Part::Test;
 
 ###############################################################################
-# $Id: Test.pm,v 1.2 2006/02/27 23:03:20 sommerb Exp $
+# $Id: Test.pm,v 1.3 2006/03/17 22:41:32 sommerb Exp $
 #
 # See license and copyright near the end of this file.
 ###############################################################################
@@ -12,17 +12,9 @@ Myco::Query::Part::Test -
 
 unit tests for features of Myco::Query::Part
 
-=head1 VERSION
-
-$Revision: 1.2 $
-
-=cut
-
-our $VERSION = (qw$Revision: 1.2 $ )[-1];
-
 =head1 DATE
 
-$Date: 2006/02/27 23:03:20 $
+$Date: 2006/03/17 22:41:32 $
 
 =head1 SYNOPSIS
 
