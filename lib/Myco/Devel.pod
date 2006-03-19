@@ -17,13 +17,13 @@ myco framework.
 
 Most likely, you will also be functioning as your own sysadmin. If so, please
 consult the L<Myco System Administration Guide|Myco::Admin> for how-tos on 
-installing Perl, PostresSQL, module dependencies, deploying the database,
+installing Perl, PostresSQL, module dependencies, myco-deploying the database,
 etc. This document will repeat some of the details from the Admin guide along
 the way.
 
 Also note that the assumption running through this guide that you're working on
 some variant of Unix or Linux. This is just to Keep It Simple Stupid. Nothing
-would thrill us more than to see widespread Windows deployments of myco. Please
+would thrill us more than to see widespread Windows myco-deployments of myco. Please
 hit the mailing list or the myco blog (L<http://www.mycohq.com/>) if you are
 attempting such a thing and run into trouble.
 
@@ -31,9 +31,9 @@ attempting such a thing and run into trouble.
 
 The simplest way to get started, after completing L<installation|Myco::Admin>
 and L<initial configuration|Myco::Admin/"Deploying the Database"> of myco, is
-to utilize L<mkentity> to create a new Myco entity class and its companion
+to utilize L<myco-mkentity> to create a new Myco entity class and its companion
 test class. Depending on how you like to structure your module files and what
-testing framework you like to use (L<mkentity> and L<testrun> currently use
+testing framework you like to use (L<myco-mkentity> and L<myco-testrun> currently use
 L<Test::Class|Test::Class> with L<Test::Unit|Test::Unit>), this may not suit you. But for this guide,
 it'll have to do :)
 
@@ -53,14 +53,14 @@ there:
   cd $MYCO_ROOT
 
 Now, after contemplating the object you'd like to model in your class and the
-name you want to give to it, run C<mkentity>:
+name you want to give to it, run C<myco-mkentity>:
 
-  ./bin/mkentity Myco::App::Guitar
+  ./bin/myco-mkentity Myco::App::Guitar
 
 Though you can name your class anything, a good place to start is to park it
 within the Myco perl namespace, making use of the 'App' area. This has been
 historically used as a collection point or sandbox for developing myco
-applications. Anyway, using C<mkentity> requires you to do it this way.
+applications. Anyway, using C<myco-mkentity> requires you to do it this way.
 
 You can now poke around your new class file:
 
@@ -72,7 +72,7 @@ and your companion test class file:
 
 Once you're satisfied its all there, give the test a whirl!
 
-  % ./bin/testrun Myco::App::Guitar::Test
+  % ./bin/myco-testrun Myco::App::Guitar::Test
   ......
   Time:  0 wallclock secs ( 0.01 usr +  0.01 sys =  0.02 CPU)
 
@@ -97,17 +97,17 @@ and run the test again. It should crash and burn, ending like this:
 So, we now want to configure your class in the myco framework to be
 persistent, so that these six initial persistence tests will pass.
 
-The Guitar.pm module file generated my L<mkentity> provides two dummy
+The Guitar.pm module file generated my L<myco-mkentity> provides two dummy
 attributes (fooattrib and barattrib) to get persistence started. This should
 suffice to prove that persistence will work. One thing you might want to do
-before redeploying the database is to specify your own DB table name. In the
+before remyco-deploying the database is to specify your own DB table name. In the
 L<Myco::Entity::Meta|Myco::Entity::Meta> object creation near the top of the
 class, setting the database table name:
 
   tangram => { table => 'guitar', }
 
 You can leave it commented out, too - table name will be generated
-automatically for your class when we recycle the database, as long as you add
+automatically for your class when we myco-recycle the database, as long as you add
 your class' name to the SCHEMA_ENTITY_CLASSES array in the schema hash in
 myco.conf:
 
@@ -123,18 +123,18 @@ file L<myco.conf-dist|conf/myco.conf-dist> to myco.conf and flesh it out.
 Regardless you need to add the name of your entity class yourself at this
 point.
 
-Now deploy the new class to the database...
+Now myco-deploy the new class to the database...
 
-  ./bin/deploy
+  ./bin/myco-deploy
 
 ...looking for output indicating that your 'guitar' table was created...
 
-  guitar deployed
+  guitar myco-deployed
   Schema Deployed
 
 ...and run the test again:
 
-  ./bin/testrun Myco::App::Guitar::Test
+  ./bin/myco-testrun Myco::App::Guitar::Test
 
 All six basic entity tests should have passed. If you're suspicious that
 something should have failed, then you must be a test-first coder! Seriously,
@@ -199,11 +199,11 @@ gauntlet. This can be very useful (even necessary) for objects that have
 required attributes using complex data types. But that's not the case with our
 current example.
 
-Since our data schema has changed, let's recycle the database!
+Since our data schema has changed, let's myco-recycle the database!
 
-  ./bin/recycle
+  ./bin/myco-recycle
 
-Again you'll see output to the effect that your guitar table was redeployed.
+Again you'll see output to the effect that your guitar table was remyco-deployed.
 
 =head1 Building a guitar
 

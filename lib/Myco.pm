@@ -1,7 +1,7 @@
 package Myco;
 
 ###############################################################################
-# $Id: Myco.pm,v 1.6 2006/03/17 22:48:11 sommerb Exp $
+# $Id: Myco.pm,v 1.7 2006/03/19 19:37:45 sommerb Exp $
 #
 # See license and copyright near the end of this file.
 ###############################################################################
@@ -16,11 +16,11 @@ Myco - The myco object framework
 
 =item Release
 
-1.1
+1.21
 
 =cut
 
-our $VERSION = 1.2;
+our $VERSION = 1.21;
 
 =head1 SYNOPSIS
 

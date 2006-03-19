@@ -1,16 +1,17 @@
 
-# $Id: test_unit_testcase.t,v 1.1.1.1 2005/12/09 18:08:47 sommerb Exp $
+# $Id: test_unit_testcase.t,v 1.2 2006/03/19 19:34:08 sommerb Exp $
 
 
 use strict;
 use Test;
 $ENV{MYCO_ROOT} = '.';
+use lib '../lib';
 
 BEGIN { plan tests => 1 };
 
 print STDERR
     "Run 'legacy' tests (okay... so, at the moment, that's all of them)\n\n";
-open(TESTRUN,"bin/testrun |");
+open(TESTRUN,"bin/myco-testrun |");
 my ($ln, $tot, $fail, $err);
 while ( defined(my $tout = <TESTRUN>) ) {
     if ( !$ln ) {

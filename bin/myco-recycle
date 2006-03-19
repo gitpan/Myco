@@ -17,7 +17,7 @@ my $pass = $opt_p || DB_PASSWORD;
 $opt_D ||= 0;
 
 system( DB_DROP_CMD );
-system("$Bin/deploy", '-u', $user, '-p', $pass,
+system("$Bin/myco-deploy", '-u', $user, '-p', $pass,
        ($opt_T ? '-T' : ()), '-D', $opt_D);
 
 sub usage {

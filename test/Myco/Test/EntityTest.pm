@@ -1,7 +1,7 @@
 package Myco::Test::EntityTest;
 
 ###############################################################################
-# $Id: EntityTest.pm,v 1.2 2006/02/27 23:03:20 sommerb Exp $
+# $Id: EntityTest.pm,v 1.3 2006/03/19 19:34:08 sommerb Exp $
 #
 # See license and copyright near the end of this file.
 ###############################################################################
@@ -14,7 +14,7 @@ Myco::Test::EntityTest - base class for Myco entity test classes
 
 =head1 SYNOPSIS
 
- ### Set up an entity test class (don't do this by hand!  Use mkentity!)
+ ### Set up an entity test class (don't do this by hand!  Use myco-mkentity!)
  ###
 
  package Myco::Foo::Test;
@@ -72,9 +72,9 @@ Myco::Test::EntityTest - base class for Myco entity test classes
  ###
 
  $ cd $MYCO_DISTRIB/driver
- $ ./testrun Myco::Foo::Test [-T]       # run tests
+ $ ./myco-testrun Myco::Foo::Test [-T]       # run tests
                                         # '-T' enables Tangram trace mode
- $ ./tktestrun Myco::Foo::Test          # run tests, GUI style
+ $ ./tkmyco-testrun Myco::Foo::Test          # run tests, GUI style
 
 =cut
 
@@ -269,8 +269,8 @@ Charles Owens <owensc@enc.edu>
 
 L<Myco::Entity|Myco::Entity>,
 L<Myco::Test::Suite|Myco::Test::Suite>,
-L<testrun|testrun>,
-L<tktestrun|tktestrun>,
+L<myco-testrun|testrun>,
+L<tkmyco-testrun|tktestrun>,
 L<Test::Unit::TestCase|Test::Unit::TestCase>
 
 =cut

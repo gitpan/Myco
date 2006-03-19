@@ -1,7 +1,7 @@
 package Myco::Entity::Meta::Test;
 
 ###############################################################################
-# $Id: Test.pm,v 1.3 2006/03/17 22:41:31 sommerb Exp $
+# $Id: Test.pm,v 1.4 2006/03/19 19:34:08 sommerb Exp $
 #
 # See license and copyright near the end of this file.
 ###############################################################################
@@ -14,15 +14,15 @@ unit tests for features of Myco::Entity::Meta
 
 =head1 DATE
 
-$Date: 2006/03/17 22:41:31 $
+$Date: 2006/03/19 19:34:08 $
 
 =head1 SYNOPSIS
 
  cd $MYCO_DISTRIB/bin
  # run tests.  '-m': test just in-memory behavior
- ./testrun [-m] Myco::Entity::Meta::Test
+ ./myco-testrun [-m] Myco::Entity::Meta::Test
  # run tests, GUI style
- ./tktestrun Myco::Entity::Meta::Test
+ ./tkmyco-testrun Myco::Entity::Meta::Test
 
 =head1 DESCRIPTION
 
@@ -669,7 +669,7 @@ it under the same terms as Perl itself.
 
 L<Myco::Entity::Meta|Myco::Entity::Meta>,
 L<Myco::Test::EntityTest|Myco::Test::EntityTest>,
-L<testrun|testrun>,
-L<tktestrun|tktestrun>,
+L<myco-testrun|testrun>,
+L<tkmyco-testrun|tktestrun>,
 L<Test::Unit::TestCase|Test::Unit::TestCase>,
-L<mkentity|mkentity>
+L<myco-mkentity|mkentity>

@@ -284,7 +284,7 @@ Change to the source directory and execute these commands:
 
 =head2 Deploying the Database
 
-Now you should deploy the database, assuming you were successful in installing
+Now you should myco-deploy the database, assuming you were successful in installing
 PostgreSQL. The CPAN installation method will have already done this for you, if you answered "yes" to the "Do you plan to run the test suite?" question.
 
 =over
@@ -298,15 +298,15 @@ line.
 
 =item *
 
-Change to the 'bin' directory, in the source directory, and run the 'deploy'
+Change to the 'bin' directory, in the source directory, and run the 'myco-deploy'
 script:
 
   cd bin
-  perl deploy
+  perl myco-deploy
 
 or, in csh:
 
-  env MYCO_ROOT=~/myco perl deploy
+  env MYCO_ROOT=~/myco perl myco-deploy
 
 =back
 

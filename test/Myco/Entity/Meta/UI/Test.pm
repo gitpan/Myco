@@ -1,7 +1,7 @@
 package Myco::Entity::Meta::UI::Test;
 
 ###############################################################################
-# $Id: Test.pm,v 1.3 2006/03/17 22:41:32 sommerb Exp $
+# $Id: Test.pm,v 1.4 2006/03/19 19:34:08 sommerb Exp $
 #
 # See license and copyright near the end of this file.
 ###############################################################################
@@ -14,15 +14,15 @@ unit tests for features of Myco::Entity::Meta::UI
 
 =head1 DATE
 
-$Date: 2006/03/17 22:41:32 $
+$Date: 2006/03/19 19:34:08 $
 
 =head1 SYNOPSIS
 
  cd $MYCO_DISTRIB/bin
  # run tests.  '-m': test just in-memory behavior
- ./testrun [-m] Myco::Entity::Meta::UI::Test
+ ./myco-testrun [-m] Myco::Entity::Meta::UI::Test
  # run tests, GUI style
- ./tktestrun Myco::Entity::Meta::UI::Test
+ ./tkmyco-testrun Myco::Entity::Meta::UI::Test
 
 =head1 DESCRIPTION
 
@@ -48,8 +48,8 @@ use constant UI_LIST => 'Myco::Entity::Meta::UI::List';
 use constant UI_VIEW => 'Myco::Entity::Meta::UI::View';
 use constant ENTITY => 'Myco::Entity::SampleEntity';
 
-# It may be helpful to number tests... use testrun's -d flag to view
-#   test-specific debug output (see example tests, testrun)
+# It may be helpful to number tests... use myco-testrun's -d flag to view
+#   test-specific debug output (see example tests, myco-testrun)
 use constant DEBUG => $ENV{MYCO_TEST_DEBUG} || 0;
 
 ##############################################################################
@@ -179,7 +179,7 @@ it under the same terms as Perl itself.
 
 L<Myco::Entity::Meta::UI|Myco::Entity::Meta::UI>,
 L<Myco::Test::EntityTest|Myco::Test::EntityTest>,
-L<testrun|testrun>,
-L<tktestrun|tktestrun>,
+L<myco-testrun|testrun>,
+L<tkmyco-testrun|tktestrun>,
 L<Test::Unit::TestCase|Test::Unit::TestCase>,
-L<mkentity|mkentity>
+L<myco-mkentity|mkentity>

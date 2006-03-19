@@ -1,7 +1,7 @@
 package Myco::Constants;
 
 ###############################################################################
-# $Id: Constants.pm,v 1.4 2006/02/27 23:03:19 sommerb Exp $
+# $Id: Constants.pm,v 1.5 2006/03/19 19:34:07 sommerb Exp $
 #
 # See license and copyright near the end of this file.
 ###############################################################################
@@ -149,6 +149,6 @@ L<Myco::Entity|Myco::Entity>,
 L<Myco|Myco>,
 L<Tangram|Tangram>,
 L<Class::Tangram|Class::Tangram>,
-L<mkentity|mkentity>
+L<myco-mkentity|mkentity>
 
 =cut

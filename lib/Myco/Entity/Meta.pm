@@ -1,7 +1,7 @@
 package Myco::Entity::Meta;
 
 ###############################################################################
-# $Id: Meta.pm,v 1.5 2006/02/27 23:03:19 sommerb Exp $
+# $Id: Meta.pm,v 1.6 2006/03/19 19:34:07 sommerb Exp $
 #
 # See license and copyright near the end of this file.
 ###############################################################################
@@ -1050,6 +1050,6 @@ L<Myco::Entity::Meta::Test|Myco::Entity::Meta::Test>,
 L<Myco|Myco>,
 L<Tangram|Tangram>,
 L<Class::Tangram|Class::Tangram>,
-L<mkentity|mkentity>
+L<myco-mkentity|mkentity>
 
 =cut

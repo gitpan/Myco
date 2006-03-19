@@ -43,11 +43,6 @@ unless( @ARGV ) {
 my $testrunner = Test::Unit::TestRunner->new();
 $testrunner->start(@ARGV ? @ARGV : 'Myco::Test::Suite');
 
-# Cleanup dangling LDAP and IMAP data
-#my $cleanup_file = $ENV{MYCO_ROOT}.'test/ldap_imap_cleanup.txt';
-#open(F, "< $cleanup_file");
-
-
 print "\n\n";
 
 sub usage {

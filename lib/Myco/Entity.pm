@@ -1,7 +1,7 @@
 package Myco::Entity;
 
 ###############################################################################
-# $Id: Entity.pm,v 1.3 2006/02/27 23:03:19 sommerb Exp $
+# $Id: Entity.pm,v 1.4 2006/03/19 19:34:07 sommerb Exp $
 #
 # See license and copyright near the end of this file.
 ###############################################################################
@@ -619,6 +619,6 @@ L<Class::Tangram|Class::Tangram>,
 L<Tangram|Tangram>,
 L<Myco::Test::EntityTest|Myco::Test::EntityTest>,
 L<Myco|Myco>,
-L<mkentity|mkentity>
+L<myco-mkentity|mkentity>
 
 =cut

@@ -1,5 +1,5 @@
 
-# $Id: Makefile.PL,v 1.21 2006/03/18 18:33:35 sommerb Exp $
+# $Id: Makefile.PL,v 1.22 2006/03/19 19:34:07 sommerb Exp $
 
 use lib '.';
 
@@ -74,23 +74,25 @@ sub yes {
   return <STDIN> =~ /^(Y(e(s)?)?|A(YE|II+!*))?\n?$/i;
 }
 
-# copy myco.conf over to this platform's /etc on install,
-# and optionally the bin scripts
+# copy myco.conf-dist and my_myco_app.conf-example over to this platform's /etc
+# on install, and optionally the bin scripts
 sub MY::postamble {
   my $etc = get_etc_or_bin('etc');
   my $copy_scripts = '';
   my $bin = get_etc_or_bin('bin');
   for my $script (@scripts_to_install) {
-    $copy_scripts .= "\n\tcp bin/$script $bin/myco-$script";
+    $copy_scripts .= "\n\tcp bin/$script $bin/$script";
   }
-  
-  my $move_etc = -f "$etc/myco.conf" ?
-    "mv $etc/myco.conf $etc/myco.conf.old && "
-      : '';
+
+  my $move_etc;
+  if (-f "$etc/myco.conf" && ($run_tests && -f 'conf/myco.conf') ) {
+    $move_etc = "mv $etc/myco.conf $etc/myco.conf.old && cp conf/myco.conf $etc && ";
+  }
 
   return inc::Module::AutoInstall::postamble . "
 install ::
-\t" . $move_etc . "cp conf/myco.conf-dist $etc" . $copy_scripts;
+\t" . $move_etc . "cp conf/myco.conf-dist $etc\n
+\t" . "cp conf/my_myco_app.conf-example $etc" . $copy_scripts;
 
 }
 
@@ -119,26 +121,16 @@ if (yes()) {
 print "
 Do you want to install the following scripts on your system?\n";
 
-print "\n ./bin/deploy?";
-push @scripts_to_install, 'deploy' if yes();
-print "\n ./bin/recycle?";
-push @scripts_to_install, 'recycle' if yes();
-print "\n ./bin/testrun?";
-push @scripts_to_install, 'testrun' if yes();
-print "\n ./bin/mkentity?";
-push @scripts_to_install, 'mkentity' if yes();
-print "\n ./bin/probe?";
-push @scripts_to_install, 'probe' if yes();
-
-if (@scripts_to_install) {
-  print "\nThanks! These will be placed in your \$PATH and renamed ";
-  for my $script (@scripts_to_install) {
-    print $script eq $scripts_to_install[$#scripts_to_install]
-      ? "and myco-$script\n" : "myco-$script, ";
-  }
-  print "\n";
-}
-sleep 2;
+print "\n ./bin/myco-deploy?";
+push @scripts_to_install, 'myco-deploy' if yes();
+print "\n ./bin/myco-recycle?";
+push @scripts_to_install, 'myco-recycle' if yes();
+print "\n ./bin/myco-testrun?";
+push @scripts_to_install, 'myco-testrun' if yes();
+print "\n ./bin/myco-mkentity?";
+push @scripts_to_install, 'myco-mkentity' if yes();
+print "\n ./bin/myco-probe (a script to probe Entity class metadata)?";
+push @scripts_to_install, 'myco-probe' if yes();
 
 name('Myco');
 requires( module_prereqs() );

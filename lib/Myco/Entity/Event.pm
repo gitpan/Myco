@@ -1,7 +1,7 @@
 package Myco::Entity::Event;
 
 ###############################################################################
-# $Id: Event.pm,v 1.3 2006/02/27 22:55:55 sommerb Exp $
+# $Id: Event.pm,v 1.4 2006/03/19 19:34:07 sommerb Exp $
 #
 # See license and copyright near the end of this file.
 ###############################################################################
@@ -240,7 +240,7 @@ The Myco::User object that created (sourced) the entity.
 
 =cut
 
-# NOTE TO SELF: deploy script was puking on the attribute name: 'user'
+# NOTE TO SELF: myco-deploy script was puking on the attribute name: 'user'
 $md->add_attribute( name => 'user_src',
                     type => 'ref',
                     tangram_options => { check_func => $chk_user_src,

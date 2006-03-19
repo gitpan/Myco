@@ -1,7 +1,7 @@
 package Myco::Util::DateTime::Test;
 
 ###############################################################################
-# $Id: Test.pm,v 1.2 2006/03/17 22:41:32 sommerb Exp $
+# $Id: Test.pm,v 1.3 2006/03/19 19:34:08 sommerb Exp $
 #
 # See license and copyright near the end of this file.
 ###############################################################################
@@ -14,15 +14,15 @@ unit tests for features of Myco::Util::DateTime
 
 =head1 DATE
 
-$Date: 2006/03/17 22:41:32 $
+$Date: 2006/03/19 19:34:08 $
 
 =head1 SYNOPSIS
 
  cd $MYCO_DISTRIB/bin
  # run tests.  '-m': test just in-memory behavior
- ./testrun [-m] Myco::Util::DateTime::Test
+ ./myco-testrun [-m] Myco::Util::DateTime::Test
  # run tests, GUI style
- ./tktestrun Myco::Util::DateTime::Test
+ ./tkmyco-testrun Myco::Util::DateTime::Test
 
 =head1 DESCRIPTION
 
@@ -48,8 +48,8 @@ use Date::Calc;
 # This class tests features of:
 my $class = 'Myco::Util::DateTime';
 
-# It may be helpful to number tests... use testrun's -d flag to view
-#   test-specific debug output (see example tests, testrun)
+# It may be helpful to number tests... use myco-testrun's -d flag to view
+#   test-specific debug output (see example tests, myco-testrun)
 use constant DEBUG => $ENV{MYCO_TEST_DEBUG} || 0;
 
 ##############################################################################

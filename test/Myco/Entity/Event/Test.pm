@@ -1,7 +1,7 @@
 package Myco::Entity::Event::Test;
 
 ###############################################################################
-# $Id: Test.pm,v 1.2 2006/03/17 22:41:31 sommerb Exp $
+# $Id: Test.pm,v 1.3 2006/03/19 19:34:08 sommerb Exp $
 #
 # See license and copyright near the end of this file.
 ###############################################################################
@@ -14,15 +14,15 @@ unit tests for features of Myco::Entity::Event
 
 =head1 DATE
 
-$Date: 2006/03/17 22:41:31 $
+$Date: 2006/03/19 19:34:08 $
 
 =head1 SYNOPSIS
 
  cd $MYCO_DISTRIB/bin
  # run tests.  '-m': test just in-memory behavior
- ./testrun [-m] Myco::Entity::Event::Test
+ ./myco-testrun [-m] Myco::Entity::Event::Test
  # run tests, GUI style
- ./tktestrun Myco::Entity::Event::Test
+ ./tkmyco-testrun Myco::Entity::Event::Test
 
 =head1 DESCRIPTION
 
@@ -51,8 +51,8 @@ my $logging_state;
 # Names of sample class packages used by these unit tests
 use constant ENTITY => 'Myco::Entity::SampleEntity';
 
-# It may be helpful to number tests... use testrun's -d flag to view
-#   test-specific debug output (see example tests, testrun)
+# It may be helpful to number tests... use myco-testrun's -d flag to view
+#   test-specific debug output (see example tests, myco-testrun)
 use constant DEBUG => $ENV{MYCO_TEST_DEBUG} || 0;
 
 ##############################################################################

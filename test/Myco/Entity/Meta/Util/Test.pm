@@ -1,7 +1,7 @@
 package Myco::Entity::Meta::Util::Test;
 
 ###############################################################################
-# $Id: Test.pm,v 1.3 2006/03/17 22:41:32 sommerb Exp $
+# $Id: Test.pm,v 1.4 2006/03/19 19:34:08 sommerb Exp $
 #
 # See license and copyright near the end of this file.
 ###############################################################################
@@ -12,15 +12,15 @@ Myco::Entity::Meta::Util::Test -
 
 unit tests for features of Myco::Entity::Meta::Util
 
-$Date: 2006/03/17 22:41:32 $
+$Date: 2006/03/19 19:34:08 $
 
 =head1 SYNOPSIS
 
  cd $MYCO_DISTRIB/bin
  # run tests.  '-m': test just in-memory behavior
- ./testrun [-m] Myco::Entity::Meta::Util::Test
+ ./myco-testrun [-m] Myco::Entity::Meta::Util::Test
  # run tests, GUI style
- ./tktestrun Myco::Entity::Meta::Util::Test
+ ./tkmyco-testrun Myco::Entity::Meta::Util::Test
 
 =head1 DESCRIPTION
 
@@ -48,8 +48,8 @@ use warnings;
 # This class tests features of:
 my $class = 'Myco::Entity::Meta::Util';
 
-# It may be helpful to number tests... use testrun's -d flag to view
-#   test-specific debug output (see example tests, testrun)
+# It may be helpful to number tests... use myco-testrun's -d flag to view
+#   test-specific debug output (see example tests, myco-testrun)
 use constant DEBUG => $ENV{MYCO_TEST_DEBUG} || 0;
 use constant META => 'Myco::Entity::Meta';
 use constant META_ATTR => META . '::Attribute';
@@ -275,7 +275,7 @@ it under the same terms as Perl itself.
 
 L<Myco::Entity::Meta::Util|Myco::Entity::Meta::Util>,
 L<Myco::Test::EntityTest|Myco::Test::EntityTest>,
-L<testrun|testrun>,
-L<tktestrun|tktestrun>,
+L<myco-testrun|testrun>,
+L<tkmyco-testrun|tktestrun>,
 L<Test::Unit::TestCase|Test::Unit::TestCase>,
-L<mkentity|mkentity>
+L<myco-mkentity|mkentity>
