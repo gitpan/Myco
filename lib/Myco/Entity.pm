@@ -1,7 +1,7 @@
 package Myco::Entity;
 
 ###############################################################################
-# $Id: Entity.pm,v 1.4 2006/03/19 19:34:07 sommerb Exp $
+# $Id: Entity.pm,v 1.6 2006/03/31 19:12:57 sommerb Exp $
 #
 # See license and copyright near the end of this file.
 ###############################################################################
@@ -95,7 +95,7 @@ use warnings;
 use strict;
 use Myco::Exceptions;
 use Set::Object;
-use Tangram::RawDateTime;
+use Tangram::Type::TimeAndDate;
 use Myco::Entity::Meta;
 
 # Any other entity class dependencies must appear after next section
@@ -441,6 +441,8 @@ the database.  The Tangram object ID is returned.
 
 sub save {
     my $self = shift;
+
+    use Myco;
 
 #    my $u = Myco::UI::Auth->get_current_user || undef;
 #    $self->set_owner_($u->get_person) if $u;

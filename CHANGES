@@ -30,3 +30,10 @@ Revision history for Perl extension Myco.
 1.21  Mar 17 2006 - interim version
 
     - renamed all scripts in bin directory to bin/myco-*
+    
+1.22  Mar 31 2006 - interim version
+
+    - made minor tweaks to be compatible woth Tangram 2.10
+    - cleaned up some problems left-over from last release
+    - renamed all scripts in bin/ to bin/myco-*
+    - fixed randomly inserted bug regarding SCHEMA_CLASSES config entry

@@ -1,7 +1,7 @@
 package Myco::Schema;
 
 ###############################################################################
-# $Id: Schema.pm,v 1.5 2006/03/17 20:59:08 sommerb Exp $
+# $Id: Schema.pm,v 1.7 2006/03/31 19:12:57 sommerb Exp $
 #
 # See license and copyright near the end of this file.
 ###############################################################################
@@ -37,8 +37,8 @@ classes in the various Myco applications.
 
 
 use Tangram;
-use Tangram::PerlDump;
-use Tangram::RawDate;
+use Tangram::Type::Dump::Perl;
+use Tangram::Type::Date;
 use Set::Object;
 
 use Myco::Association;
@@ -75,7 +75,8 @@ sub mkschema {
   use Myco::Config qw(:schema);
 
   if (SCHEMA_ENTITY_CLASSES) {
-    my $classes = Myco::Util::Misc->hash_with_no_values_to_array($val);
+    my $classes_hash = SCHEMA_ENTITY_CLASSES;
+    my $classes = Myco::Util::Misc->hash_with_no_values_to_array($classes_hash);
     for my $class (@$classes) {
       eval "use $class";
       my $this_class_schema = eval '$'.$class.'::schema';

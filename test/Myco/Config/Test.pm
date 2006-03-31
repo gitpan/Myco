@@ -1,7 +1,7 @@
 package Myco::Config::Test;
 
 ################################################################################
-# $Id: Test.pm,v 1.6 2006/03/17 22:41:31 sommerb Exp $
+# $Id: Test.pm,v 1.7 2006/03/31 15:19:41 sommerb Exp $
 #
 # See license and copyright near the end of this file.
 ################################################################################
@@ -16,7 +16,7 @@ Myco::Config::Test - Myco::Config unit tester.
 
 =head1 DATE
 
-$Date: 2006/03/17 22:41:31 $
+$Date: 2006/03/31 15:19:41 $
 
 =head1 SYNOPSIS
 
@@ -90,9 +90,6 @@ sub test_include_file_with_all_key {
 
 sub test_include_file_with_doodads_key {
     my $test = shift;
- 
-    my $conf_file = catfile($ENV{MYCO_ROOT}, 'conf',
-                            'my_myco_app.conf-example');
     
     # Now see if include data gets sucked in with myco.conf with ':doodads' tag
     use Myco::Config qw(:doodads);

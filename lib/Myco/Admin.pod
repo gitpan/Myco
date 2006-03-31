@@ -59,6 +59,8 @@ START MODULE LIST
 
 =item Bit::Vector
 
+=item Class::Accessor::Assert
+
 =item Class::Data::Inheritable
 
 =item Class::Inner
@@ -93,7 +95,7 @@ START MODULE LIST
 
 =item Set::Object 1.04
 
-=item Tangram
+=item Tangram 2.10
 
 =item Test::Unit
 

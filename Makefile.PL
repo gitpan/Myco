@@ -1,5 +1,5 @@
 
-# $Id: Makefile.PL,v 1.22 2006/03/19 19:34:07 sommerb Exp $
+# $Id: Makefile.PL,v 1.23 2006/03/31 15:19:39 sommerb Exp $
 
 use lib '.';
 
@@ -228,7 +228,7 @@ MSG
 Now creating and deploying the database...
 MSG
 
-  system 'bin/deploy';
+  system 'bin/myco-deploy';
   
 } else {
   

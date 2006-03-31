@@ -1,9 +1,7 @@
-#!/usr/bin/perl
-#   note: above bang-path is present just to make emacs cperl mode happy
-###########################################################################
-# Example configuration include file for myco applications
-# See Config::General for the many options for constructing your config file
-###########################################################################
+############################################################
+# Example configuration include file for myco applications #
+# See Config::General for syntax rules                     #
+############################################################
 
 <doodads>
     DOODAD1 = "yo!"

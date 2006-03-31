@@ -1,7 +1,7 @@
 package Myco::Entity::Event;
 
 ###############################################################################
-# $Id: Event.pm,v 1.4 2006/03/19 19:34:07 sommerb Exp $
+# $Id: Event.pm,v 1.5 2006/03/31 19:12:57 sommerb Exp $
 #
 # See license and copyright near the end of this file.
 ###############################################################################
@@ -41,7 +41,7 @@ use Myco::Exceptions;
 use Myco::Config qw(:evlog);
 use WeakRef;
 use Myco::Util::DateTime;
-use Tangram::PerlDump;
+use Tangram::Type::Dump::Perl;
 
 ##############################################################################
 # Constants
